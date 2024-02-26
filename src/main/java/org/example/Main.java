@@ -1,16 +1,22 @@
 package org.example;
 
+import org.example.domain.bicho.Bicho;
+import org.example.domain.bicho.BichoDAO;
 import org.example.domain.tuberculo.Tuberculo;
 import org.example.domain.tuberculo.TuberculoDAO;
 import org.example.enums.Estado;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        ArrayList bichos = new ArrayList();
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Tuberculo tuberculo = new Tuberculo();
         tuberculo.setNombre("Patata");
@@ -49,5 +55,24 @@ public class Main {
         tuberculoDAO.delete(tuberculo);
 
         System.out.println(tuberculoDAO.getAll());
+
+        Bicho bicho = new Bicho();
+        bicho.setNombre("Oruga");
+        bicho.setDescription("Muy mala para las zanahorias");
+        bicho.setTuberculoid(tuberculo2);
+
+        BichoDAO bichoDAO = new BichoDAO();
+
+        bichoDAO.save(bicho);
+
+        bichos.add(bicho);
+
+        tuberculo2.setBichos(bichos);
+
+        System.out.println(tuberculoDAO.get(2));
+
+        tuberculoDAO.delete(tuberculo2);
+
+        System.out.println(bichoDAO.getAll());
     }
 }
